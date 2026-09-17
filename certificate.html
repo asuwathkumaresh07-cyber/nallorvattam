@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Membership Certificate | நல்லோர் வட்டம்</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gd:  #166534;
+      --gf:  #22C55E;
+      --gl:  #DCFCE7;
+      --gs:  #F0FDF4;
+      --gm:  #16a34a;
+      --gdk: #14532d;
+      --font: 'Inter', 'Noto Sans Tamil', sans-serif;
+    }
+    body {
+      font-family: var(--font);
+      background: #f0fdf4;
+      min-height: 100vh;
+      padding: 24px 16px 48px;
+    }
+
+    /* ── Page wrapper ── */
+    .cert-page-wrap { max-width: 840px; margin: 0 auto; }
+
+    /* ── Action bar (hidden on print) ── */
+    .cert-actions {
+      display: flex; gap: 12px;
+      justify-content: center; align-items: center;
+      padding: 0 0 28px; flex-wrap: wrap;
+    }
+    .cert-btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 13px 28px; border-radius: 99px;
+      font-weight: 700; font-size: .95rem;
+      cursor: pointer; border: none;
+      font-family: var(--font);
+      text-decoration: none; transition: all .25s;
+    }
+    .cert-btn-primary {
+      background: linear-gradient(135deg, #22C55E, #16a34a);
+      color: #fff;
+      box-shadow: 0 5px 18px rgba(34,197,94,.36);
+    }
+    .cert-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(34,197,94,.45); }
+    .cert-btn-outline {
+      background: #fff; color: #166534;
+      border: 2px solid #22C55E;
+    }
+    .cert-btn-outline:hover { background: #f0fdf4; transform: translateY(-2px); }
+
+    /* ── Certificate card ── */
+    .certificate {
+      background: #fff;
+      border: 3px solid var(--gd);
+      border-radius: 18px;
+      padding: 48px 52px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(22,101,52,.14);
+    }
+
+    /* Corner ornaments */
+    .cert-corner {
+      position: absolute; width: 80px; height: 80px;
+      border-color: var(--gf); border-style: solid; opacity: .32;
+    }
+    .cert-corner-tl { top: 16px;    left: 16px;  border-width: 3px 0 0 3px; border-radius: 8px 0 0 0; }
+    .cert-corner-tr { top: 16px;    right: 16px; border-width: 3px 3px 0 0; border-radius: 0 8px 0 0; }
+    .cert-corner-bl { bottom: 16px; left: 16px;  border-width: 0 0 3px 3px; border-radius: 0 0 0 8px; }
+    .cert-corner-br { bottom: 16px; right: 16px; border-width: 0 3px 3px 0; border-radius: 0 0 8px 0; }
+
+    /* Watermark */
+    .cert-watermark {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      font-size: 11rem; color: rgba(34,197,94,.04);
+      font-weight: 900; white-space: nowrap;
+      pointer-events: none;
+      font-family: 'Noto Sans Tamil', sans-serif;
+    }
+
+    /* ── Header ── */
+    .cert-header {
+      text-align: center;
+      border-bottom: 2px solid var(--gl);
+      padding-bottom: 28px; margin-bottom: 28px;
+    }
+    .cert-logo-wrap {
+      width: 90px; height: 90px; border-radius: 50%;
+      border: 3px solid var(--gf);
+      overflow: hidden; margin: 0 auto 14px;
+      background: #fff;
+    }
+    .cert-logo-wrap img {
+      width: 90px; height: 90px;
+      object-fit: cover; object-position: center;
+      display: block; max-width: none;
+      transform: scale(1.18); transform-origin: center;
+    }
+    .cert-org-name {
+      font-family: 'Noto Sans Tamil', var(--font);
+      font-size: 1.55rem; font-weight: 900; color: var(--gd);
+      margin-bottom: 3px;
+    }
+    .cert-org-sub {
+      font-size: .82rem; color: #4b7a56;
+      letter-spacing: .08em; text-transform: uppercase;
+    }
+    .cert-title {
+      font-size: 1.1rem; font-weight: 800; color: var(--gd);
+      margin-top: 18px; letter-spacing: .06em; text-transform: uppercase;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+    .cert-title::before, .cert-title::after {
+      content: ''; flex: 1; height: 1px;
+    }
+    .cert-title::before { background: linear-gradient(90deg, transparent, var(--gf)); }
+    .cert-title::after  { background: linear-gradient(90deg, var(--gf), transparent); }
+
+    /* ── Body ── */
+    .cert-body { text-align: center; margin-bottom: 28px; }
+    .cert-this-is {
+      font-size: .9rem; color: #4b7a56; margin-bottom: 8px;
+    }
+    .cert-member-name {
+      font-size: 2.2rem; font-weight: 900; color: var(--gd);
+      font-family: 'Noto Sans Tamil', var(--font);
+      margin-bottom: 8px;
+      border-bottom: 2px dashed var(--gl);
+      padding-bottom: 10px;
+      display: inline-block;
+    }
+    .cert-is-member {
+      font-size: .95rem; color: #4b7a56;
+      margin-bottom: 24px; line-height: 1.7;
+    }
+    .cert-is-member strong { color: var(--gd); }
+
+    /* Member ID badge */
+    .cert-id-badge {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: linear-gradient(135deg, var(--gdk), var(--gd));
+      color: #fff; border-radius: 14px;
+      padding: 14px 28px; margin-bottom: 26px;
+    }
+    .cert-id-badge i { color: var(--gf); font-size: 1.2rem; }
+    .cert-id-badge .bid-wrap { display: flex; flex-direction: column; gap: 2px; }
+    .cert-id-badge .bid-label { font-size: .72rem; opacity: .7; letter-spacing: .05em; text-transform: uppercase; }
+    .cert-id-badge .bid-value { font-size: 1.35rem; font-weight: 900; letter-spacing: .07em; }
+
+    /* Details grid */
+    .cert-details {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-bottom: 24px; text-align: left;
+    }
+    .cert-detail-item {
+      background: var(--gs); border: 1px solid var(--gl);
+      border-radius: 10px; padding: 10px 14px;
+    }
+    .cert-detail-item.full { grid-column: 1 / -1; }
+    .cert-detail-label {
+      font-size: .68rem; font-weight: 700; color: #4b7a56;
+      text-transform: uppercase; letter-spacing: .06em;
+      margin-bottom: 4px;
+    }
+    .cert-detail-value {
+      font-size: .92rem; font-weight: 600; color: var(--gd);
+      word-break: break-word; line-height: 1.5;
+    }
+
+    /* ── Footer ── */
+    .cert-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 2px solid var(--gl); padding-top: 20px;
+      flex-wrap: wrap; gap: 14px;
+    }
+    .cert-date { font-size: .82rem; color: #4b7a56; }
+    .cert-date strong { color: var(--gd); }
+    .cert-tagline {
+      font-size: .8rem; color: #4b7a56;
+      text-align: center; font-style: italic; line-height: 1.65;
+    }
+    .cert-seal { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+    .cert-seal-circle {
+      width: 64px; height: 64px; border-radius: 50%;
+      border: 2px solid var(--gf);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gd); font-size: 1.6rem;
+      background: var(--gs);
+    }
+    .cert-seal span { font-size: .62rem; color: #4b7a56; font-weight: 700; letter-spacing: .04em; }
+
+    /* ── Print ── */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .cert-actions { display: none !important; }
+      .certificate { box-shadow: none; border: 2px solid #166534; border-radius: 0; }
+      .cert-page-wrap { max-width: 100%; }
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 600px) {
+      .certificate { padding: 28px 18px; }
+      .cert-details { grid-template-columns: 1fr; }
+      .cert-detail-item.full { grid-column: 1; }
+      .cert-member-name { font-size: 1.55rem; }
+      .cert-footer { flex-direction: column; align-items: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cert-page-wrap">
+
+  <!-- Action buttons -->
+  <div class="cert-actions">
+    <button class="cert-btn cert-btn-primary" onclick="window.print()">
+      <i class="fas fa-download"></i>
+      <span id="btn-download-text">Download Certificate (Print / PDF)</span>
+    </button>
+    <a href="index.html" class="cert-btn cert-btn-outline">
+      <i class="fas fa-home"></i>
+      <span id="btn-home-text">Back to Home</span>
+    </a>
+  </div>
+
+  <!-- THE CERTIFICATE -->
+  <div class="certificate" id="certificate">
+    <!-- Corner ornaments -->
+    <div class="cert-corner cert-corner-tl"></div>
+    <div class="cert-corner cert-corner-tr"></div>
+    <div class="cert-corner cert-corner-bl"></div>
+    <div class="cert-corner cert-corner-br"></div>
+    <!-- Watermark -->
+    <div class="cert-watermark">நவ</div>
+
+    <!-- Header -->
+    <div class="cert-header">
+      <div class="cert-logo-wrap">
+        <img src="nallorvattamload.png" alt="நல்லோர் வட்டம்" />
+      </div>
+      <div class="cert-org-name">நல்லோர் வட்டம்</div>
+      <div class="cert-org-sub" id="cert-org-sub">Nallor Vattam · Tiruppur City Municipal Corporation</div>
+      <div class="cert-title" id="cert-title-text">MEMBERSHIP CERTIFICATE</div>
+    </div>
+
+    <!-- Body -->
+    <div class="cert-body">
+      <p class="cert-this-is" id="cert-this-is">This is to certify that</p>
+      <div class="cert-member-name" id="cert-name">—</div>
+      <p class="cert-is-member" id="cert-is-member">
+        is an official member of <strong>நல்லோர் வட்டம் (Nallor Vattam)</strong>,<br/>
+        Tiruppur's community movement for a clean, waste-free city.
+      </p>
+
+      <!-- Member ID -->
+      <div class="cert-id-badge">
+        <i class="fas fa-id-card"></i>
+        <div class="bid-wrap">
+          <span class="bid-label" id="cert-id-label">Member ID</span>
+          <span class="bid-value" id="cert-id">NV-000000</span>
+        </div>
+      </div>
+
+      <!-- Details grid (built by JS) -->
+      <div class="cert-details" id="cert-details"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="cert-footer">
+      <div class="cert-date">
+        <span id="cert-date-label">Date of Registration:</span><br/>
+        <strong id="cert-date">—</strong>
+      </div>
+      <div class="cert-tagline" id="cert-tagline">
+        "என் திருப்பூர் என் கைகளில்"<br/>
+        <em>My Tiruppur is in my hands</em>
+      </div>
+      <div class="cert-seal">
+        <div class="cert-seal-circle"><i class="fas fa-recycle"></i></div>
+        <span id="cert-seal-text">NALLOR VATTAM</span>
+      </div>
+    </div>
+  </div><!-- /.certificate -->
+
+</div><!-- /.cert-page-wrap -->
+
+<script>
+(function () {
+  'use strict';
+
+  const params = new URLSearchParams(window.location.search);
+  const lang   = params.get('lang') || 'en';
+  const isTA   = lang === 'ta';
+
+  /* ── Language strings ── */
+  const STR = {
+    en: {
+      title:      'Membership Certificate',
+      orgSub:     'Nallor Vattam · Tiruppur City Municipal Corporation',
+      certTitle:  'MEMBERSHIP CERTIFICATE',
+      thisIs:     'This is to certify that',
+      isMember:   'is an official member of <strong>நல்லோர் வட்டம் (Nallor Vattam)</strong>,<br/>Tiruppur\'s community movement for a clean, waste-free city.',
+      idLabel:    'Member ID',
+      dateLabel:  'Date of Registration:',
+      tagline:    '"என் திருப்பூர் என் கைகளில்"<br/><em>My Tiruppur is in my hands</em>',
+      sealText:   'NALLOR VATTAM',
+      btnDownload:'Download Certificate (Print / PDF)',
+      btnHome:    'Back to Home',
+      /* Detail labels */
+      lMemberNo:  'Member No.',
+      lCorp:      'Corporation',
+      lMandalam:  'Mandalam',
+      lWard:      'Ward',
+      lAddress:   'Address',
+      lMobile:    'Mobile',
+      /* Address helpers */
+      doorPfx:    'Door No. ',
+      city:       'Tiruppur'
+    },
+    ta: {
+      title:      'உறுப்பினர் சான்றிதழ் | நல்லோர் வட்டம்',
+      orgSub:     'நல்லோர் வட்டம் · திருப்பூர் மாநகராட்சி',
+      certTitle:  'உறுப்பினர் சான்றிதழ்',
+      thisIs:     'இவர்',
+      isMember:   '<strong>நல்லோர் வட்டம்</strong> — திருப்பூர் மாநகராட்சியின் சுத்தமான நகரத்திற்கான சமூக இயக்கத்தின் அதிகாரப்பூர்வ உறுப்பினர்.',
+      idLabel:    'உறுப்பினர் அடையாள எண்',
+      dateLabel:  'பதிவு தேதி:',
+      tagline:    '"என் திருப்பூர் என் கைகளில்"<br/><em>My Tiruppur is in my hands</em>',
+      sealText:   'நல்லோர் வட்டம்',
+      btnDownload:'சான்றிதழ் பதிவிறக்கம் (அச்சு / PDF)',
+      btnHome:    'முகப்பு பக்கம்',
+      /* Detail labels */
+      lMemberNo:  'உறுப்பினர் எண்',
+      lCorp:      'மாநகராட்சி',
+      lMandalam:  'மண்டலம்',
+      lWard:      'வார்டு',
+      lAddress:   'முகவரி',
+      lMobile:    'கைபேசி எண்',
+      /* Address helpers */
+      doorPfx:    'வீட்டு எண் ',
+      city:       'திருப்பூர்'
+    }
+  };
+
+  const s = STR[lang];
+
+  /* ── Apply language to static elements ── */
+  document.documentElement.lang = isTA ? 'ta' : 'en';
+  document.title = s.title;
+
+  document.getElementById('cert-org-sub').textContent    = s.orgSub;
+  document.getElementById('cert-title-text').textContent = s.certTitle;
+  document.getElementById('cert-this-is').textContent    = s.thisIs;
+  document.getElementById('cert-is-member').innerHTML    = s.isMember;
+  document.getElementById('cert-id-label').textContent   = s.idLabel;
+  document.getElementById('cert-date-label').textContent = s.dateLabel;
+  document.getElementById('cert-tagline').innerHTML      = s.tagline;
+  document.getElementById('cert-seal-text').textContent  = s.sealText;
+  document.getElementById('btn-download-text').textContent = s.btnDownload;
+  document.getElementById('btn-home-text').textContent     = s.btnHome;
+
+  /* ── Fill core values ── */
+  document.getElementById('cert-name').textContent =
+    params.get('name') || '—';
+  document.getElementById('cert-id').textContent =
+    params.get('memberId') || 'NV-000000';
+  document.getElementById('cert-date').textContent =
+    params.get('date') || new Date().toLocaleDateString('en-IN');
+
+  /* ── Pick correct language for Mandalam / Ward ── */
+  const mandalamText = isTA
+    ? (params.get('mandalamTa') || params.get('mandalamEn') || '')
+    : (params.get('mandalamEn') || '');
+
+  const wardText = isTA
+    ? (params.get('wardTa') || params.get('wardEn') || '')
+    : (params.get('wardEn') || '');
+
+  const corpText = isTA
+    ? (params.get('corpTa') || 'திருப்பூர் மாநகராட்சி')
+    : (params.get('corpEn') || 'Tiruppur City Municipal Corporation');
+
+  /* ── Build full address string (single language) ── */
+  const door     = params.get('door')     || '';
+  const street   = params.get('street')   || '';
+  const building = params.get('building') || '';
+  const area     = params.get('area')     || '';
+  const landmark = params.get('landmark') || '';
+  const pincode  = params.get('pincode')  || '';
+  const mobile   = params.get('mobile')   || '';
+  const memberNum= params.get('memberNum')|| '';
+
+  const addrParts = [
+    mandalamText                    || null,
+    wardText                        || null,
+    door     ? s.doorPfx + door     : null,
+    street                          || null,
+    building                        || null,
+    area                            || null,
+    landmark                        || null,
+    pincode  ? s.city + ' – ' + pincode : s.city
+  ].filter(Boolean);
+
+  /* ── Build details grid ── */
+  const items = [
+    { label: s.lMemberNo, value: memberNum ? '#' + memberNum : null },
+    { label: s.lCorp,     value: corpText },
+    { label: s.lMandalam, value: mandalamText || null },
+    { label: s.lWard,     value: wardText     || null },
+    { label: s.lMobile,   value: mobile       || null },
+    { label: s.lAddress,  value: addrParts.join(', '), full: true }
+  ].filter(d => d.value);
+
+  const grid = document.getElementById('cert-details');
+  items.forEach(d => {
+    const div = document.createElement('div');
+    div.className = 'cert-detail-item' + (d.full ? ' full' : '');
+    div.innerHTML =
+      '<div class="cert-detail-label">' + d.label + '</div>' +
+      '<div class="cert-detail-value">' + d.value + '</div>';
+    grid.appendChild(div);
+  });
+
+})();
+</script>
+</body>
+</html>
