@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ── Security meta tags ── -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>நல்லோர் வட்டம் | Nallor Vattam – Tiruppur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ========== LOADING SCREEN ========== -->
+  <div id="loader" class="loader-overlay">
+    <div class="loader-content">
+      <div class="loader-logo-wrap">
+        <img src="nallorvattam.png" alt="நல்லோர் வட்டம்" class="loader-logo-img" />
+      </div>
+      <p class="loader-motto">என் திருப்பூர் என் பொறுப்பு</p>
+      <div class="loader-bar-wrap">
+        <div class="loader-bar" id="loaderBar">
+          <span class="loader-bar-glow"></span>
+        </div>
+      </div>
+      <p class="loader-percent" id="loaderPercent">0%</p>
+    </div>
+  </div>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-brand">
+        <img src="nallorvattam.png" alt="நல்லோர் வட்டம்" class="nav-logo-full" id="navLogoImg" />
+      </a>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home"    class="nav-link active" data-en="Home"    data-ta="முகப்பு">Home</a></li>
+        <li><a href="#members" class="nav-link"        data-en="Members"  data-ta="உறுப்பினர்">Members</a></li>
+        <li><a href="#about"   class="nav-link"        data-en="About"    data-ta="பற்றி">About</a></li>
+        <li><a href="#mission" class="nav-link"        data-en="Mission"  data-ta="நோக்கம்">Mission</a></li>
+        <li><a href="#gallery" class="nav-link"        data-en="Gallery"  data-ta="படங்கள்">Gallery</a></li>
+        <li><a href="#contact" class="nav-link"        data-en="Contact"  data-ta="தொடர்பு">Contact</a></li>
+        <!-- REGISTER #1 — Navbar top-right -->
+        <li><a href="register.html" class="nav-cta-btn" data-en="Join Us" data-ta="சேரவும்">Join Us</a></li>
+      </ul>
+
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Switch to dark mode">
+          <i class="fas fa-moon tt-moon"></i>
+          <i class="fas fa-sun  tt-sun"></i>
+        </button>
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language" title="Switch to Tamil">
+          <span class="lt-flag" id="langFlag">🇮🇳</span>
+          <span class="lt-text">
+            <span id="langLabel">தமிழ்</span>
+            <i class="fas fa-chevron-down"></i>
+          </span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="home">
+    <div class="hero-video-wrap">
+      <!-- src injected dynamically by script.js via /api/video -->
+      <video autoplay muted loop playsinline class="hero-video" id="heroVideo"></video>
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-particles" aria-hidden="true" id="heroParticles"></div>
+    <div class="floating-icons" aria-hidden="true">
+      <i class="fas fa-trash-alt fi fi1"></i>
+      <i class="fas fa-recycle   fi fi2"></i>
+      <i class="fas fa-leaf      fi fi3"></i>
+      <i class="fas fa-fist-raised fi fi4"></i>
+      <i class="fas fa-recycle   fi fi5"></i>
+      <i class="fas fa-trash-alt fi fi6"></i>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-badge anim-fade-up" style="--d:0s">
+        <span class="badge-dot"></span>
+        <i class="fas fa-map-marker-alt"></i>
+        <span data-i18n="hero_location">Tiruppur, Tamil Nadu</span>
+      </div>
+      <h1 class="hero-quote anim-fade-up" style="--d:.15s"><span class="hq-text">&ldquo;என் திருப்பூர் என் பொறுப்பு&rdquo;</span></h1>
+      <p class="hero-desc anim-fade-up" style="--d:.40s">
+        <span data-i18n="hero_desc">United against waste. Tiruppur's largest community movement — clearing garbage, protesting illegal dumping, and demanding a <strong>clean, healthy and proud city</strong> for every resident.</span>
+      </p>
+      <!-- Hero feature chips -->
+      <div class="hero-chips anim-fade-up" style="--d:.46s">
+        <span class="hchip"><i class="fas fa-users"></i> <span id="heroMemberChip">0</span> <span data-i18n="circle_label">Members</span></span>
+      </div>
+      <div class="hero-actions anim-fade-up" style="--d:.52s">
+        <!-- REGISTER #2 — Hero, visible without scrolling -->
+        <a href="register.html" class="btn btn-primary btn-hero">
+          <i class="fas fa-user-plus"></i>
+          <span data-i18n="hero_btn1">Join the Movement</span>
+        </a>
+        <a href="#members" class="btn btn-glass">
+          <i class="fas fa-users"></i>
+          <span data-i18n="hero_btn2">See Members</span>
+        </a>
+      </div>
+      <div class="hero-campaign-badge anim-fade-up" style="--d:.64s">
+        <span class="hcb-dot"></span>
+        <i class="fas fa-bullhorn"></i>
+        <span data-i18n="hero_protest">Active Cleanup Campaign — Tiruppur</span>
+      </div>
+    </div>
+
+    <div class="hero-scroll-wrap">
+      <div class="hero-scroll-line"></div>
+      <span data-i18n="scroll_text">scroll</span>
+    </div>
+  </section>
+
+  <!-- ========== MEMBERS COUNTER ========== -->
+  <section class="members-section" id="members">
+    <div class="ms-bg-art" aria-hidden="true">
+      <div class="mba mba1"></div><div class="mba mba2"></div><div class="mba mba3"></div>
+    </div>
+    <div class="container">
+      <div class="members-layout">
+
+        <div class="section-label-block">
+          <span class="section-badge" data-i18n="impact_badge">Our Impact</span>
+          <h2 class="section-title">
+            <span data-i18n="impact_title">Together We Make</span>&nbsp;<span class="green-text" data-i18n="impact_title2">Tiruppur Cleaner</span>
+          </h2>
+          <p class="section-sub" data-i18n="impact_sub">Every member counts. Every cleanup matters.</p>
+        </div>
+
+        <!-- BIG CIRCLE — number shown inside alone -->
+        <div class="big-circle-wrap">
+          <div class="big-circle-outer">
+            <div class="big-circle-spin-ring"></div>
+            <div class="big-circle-inner">
+              <svg class="circle-svg" viewBox="0 0 200 200" aria-hidden="true">
+                <circle class="cs-track" cx="100" cy="100" r="88"/>
+                <circle class="cs-fill"  cx="100" cy="100" r="88" id="circleArc"/>
+              </svg>
+              <div class="circle-core">
+                <div class="cc-icon"><i class="fas fa-users"></i></div>
+                <!-- The count number shown inside the circle -->
+                <div class="cc-number" id="bigMemberCount">0</div>
+                <div class="cc-label" data-i18n="circle_label">Members</div>
+                <div class="cc-pulse-ring"></div>
+              </div>
+            </div>
+          </div>
+          <div class="circle-live-badge">
+            <span class="clb-dot"></span>
+            <span id="liveCountBadge">0</span>&nbsp;<span data-i18n="live_suffix">registered</span>
+          </div>
+        </div>
+
+        <div class="live-ticker">
+          <div class="ticker-dot"></div>
+          <span class="ticker-body">
+            <strong id="live-count">0</strong>
+            <span data-i18n="ticker_text">&nbsp;members — Nallor Vattam&nbsp;</span>
+            <a href="register.html" class="ticker-cta" data-i18n="ticker_cta">Be the next!</a>
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ABOUT ========== -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual reveal">
+          <div class="about-img-wrap">
+            <img src="https://images.unsplash.com/photo-1562077981-4d7eafd44932?w=700&q=80"
+                 alt="Community waste cleanup volunteers" loading="lazy" class="about-img" />
+            <div class="about-img-badge">
+              <i class="fas fa-recycle"></i>
+              <span data-i18n="about_img_badge">Tiruppur Cleanup</span>
+            </div>
+          </div>
+          <div class="about-float-card">
+            <i class="fas fa-fist-raised"></i>
+            <div>
+              <strong data-i18n="float_card_title">No Illegal Dumping</strong>
+              <span data-i18n="float_card_sub">We protest &amp; act</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-text reveal">
+          <span class="section-badge" data-i18n="about_badge">About Us</span>
+          <h2 class="section-title" data-i18n="about_title">Who Are We?</h2>
+          <p class="about-lead" data-i18n="about_lead"><strong>நல்லோர் வட்டம் (Nallor Vattam)</strong> is a grassroots community organisation in Tiruppur, Tamil Nadu, fighting for a waste-free city.</p>
+          <p data-i18n="about_body">We are ordinary citizens — fed up with overflowing garbage, illegal dump yards, and zero accountability. We organise <strong>mass cleanups</strong>, <strong>community protests</strong>, and <strong>awareness campaigns</strong> to force change in Tiruppur.</p>
+          <div class="about-values">
+            <div class="value-item"><i class="fas fa-broom"></i><span data-i18n="val1">Street &amp; public space cleanups</span></div>
+            <div class="value-item"><i class="fas fa-fist-raised"></i><span data-i18n="val2">Protests against illegal dumping</span></div>
+            <div class="value-item"><i class="fas fa-bullhorn"></i><span data-i18n="val3">Demand accountability</span></div>
+            <div class="value-item"><i class="fas fa-recycle"></i><span data-i18n="val4">Waste segregation awareness</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHY JOIN — feature strip ========== -->
+  <section class="why-section">
+    <div class="container">
+      <div class="section-header center reveal">
+        <span class="section-badge" data-i18n="why_badge">Why Join Us</span>
+        <h2 class="section-title" data-i18n="why_title">Be Part of Something Real</h2>
+        <p class="section-sub" data-i18n="why_sub">Not a social media page — actual boots on the ground, cleaning Tiruppur ward by ward.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card reveal">
+          <div class="why-icon"><i class="fas fa-hands-helping"></i></div>
+          <h3 data-i18n="why1_h">Real Community</h3>
+          <p data-i18n="why1_p">Thousands of ordinary Tiruppur citizens working together — students, workers, homemakers — all united for one clean city.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon"><i class="fas fa-map-marked-alt"></i></div>
+          <h3 data-i18n="why2_h">Every Ward Covered</h3>
+          <p data-i18n="why2_p">We operate in 24 zones across Tiruppur. From Selvapuram to Rayapuram — no area is too far for our volunteers.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon"><i class="fas fa-bullhorn"></i></div>
+          <h3 data-i18n="why3_h">We Raise Our Voice</h3>
+          <p data-i18n="why3_p">Beyond cleaning — we petition, protest, and demand accountability from corporations and the municipality.</p>
+        </div>
+        <div class="why-card reveal">
+          <div class="why-icon"><i class="fas fa-certificate"></i></div>
+          <h3 data-i18n="why4_h">Official Membership</h3>
+          <p data-i18n="why4_p">Receive your Nallor Vattam member certificate, get first access to events, and build a lasting network of change-makers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== MISSION ========== -->
+  <section class="mission-section" id="mission">
+    <div class="container">
+      <div class="section-header center reveal">
+        <span class="section-badge" data-i18n="mission_badge">Our Mission</span>
+        <h2 class="section-title" data-i18n="mission_title">What We Fight For</h2>
+        <p class="section-sub" data-i18n="mission_sub">Two clear goals. One united community. Zero tolerance for waste.</p>
+      </div>
+      <div class="mission-grid">
+        <div class="mission-card mc-cleanup reveal">
+          <div class="mc-bg-icon" aria-hidden="true"><i class="fas fa-broom"></i></div>
+          <div class="mc-number">01</div>
+          <div class="mc-icon-wrap"><i class="fas fa-broom"></i></div>
+          <h3 data-i18n="m1_title">Waste Clearance</h3>
+          <p data-i18n="m1_body">We physically remove waste from streets, parks, water bodies and public spaces across every ward in Tiruppur.</p>
+          <ul class="mc-list">
+            <li><i class="fas fa-check"></i><span data-i18n="m1l1">Street &amp; roadside cleaning</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="m1l2">Drain &amp; canal desilting</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="m1l3">Vacant plot cleanups</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="m1l4">Post-event waste collection</span></li>
+          </ul>
+        </div>
+        <div class="mission-card mc-protest reveal">
+          <div class="mc-bg-icon" aria-hidden="true"><i class="fas fa-fist-raised"></i></div>
+          <div class="mc-number">02</div>
+          <div class="mc-icon-wrap"><i class="fas fa-fist-raised"></i></div>
+          <h3 data-i18n="m2_title">Protest &amp; Demand Change</h3>
+          <p data-i18n="m2_body">We raise our voice against those who dump waste illegally. We demand proper infrastructure and strict enforcement.</p>
+          <ul class="mc-list">
+            <li><i class="fas fa-check"></i><span data-i18n="m2l1">Peaceful street protests</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="m2l2">Petitions to authorities</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="m2l3">Expose illegal dump yards</span></li>
+            <li><i class="fas fa-check"></i><span data-i18n="m2l4">Social media campaigns</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="process-timeline reveal">
+        <h3 class="pt-title" data-i18n="pt_title">How We Work</h3>
+        <div class="pt-steps">
+          <div class="pt-step"><div class="pt-step-icon"><i class="fas fa-search"></i></div><div class="pt-step-line"></div><span data-i18n="pt1">Identify</span></div>
+          <div class="pt-step"><div class="pt-step-icon"><i class="fas fa-users"></i></div><div class="pt-step-line"></div><span data-i18n="pt2">Mobilise</span></div>
+          <div class="pt-step"><div class="pt-step-icon"><i class="fas fa-broom"></i></div><div class="pt-step-line"></div><span data-i18n="pt3">Cleanup</span></div>
+          <div class="pt-step"><div class="pt-step-icon"><i class="fas fa-bullhorn"></i></div><div class="pt-step-line"></div><span data-i18n="pt4">Protest</span></div>
+          <div class="pt-step"><div class="pt-step-icon"><i class="fas fa-check-circle"></i></div><div class="pt-step-line last"></div><span data-i18n="pt5">Follow Up</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== GALLERY ========== -->
+  <section class="gallery-section" id="gallery">
+    <div class="container">
+      <div class="section-header center reveal">
+        <span class="section-badge" data-i18n="gallery_badge">Gallery</span>
+        <h2 class="section-title" data-i18n="gallery_title">Our Cleanup &amp; Protest Moments</h2>
+        <p class="section-sub" data-i18n="gallery_sub">Real action. Real change. By the people of Tiruppur.</p>
+      </div>
+      <!-- gallery items injected dynamically by script.js via /api/gallery -->
+      <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-loading" id="galleryLoading" style="grid-column:1/-1;text-align:center;padding:48px 0;color:#9ca3af;">
+          <i class="fas fa-spinner fa-spin" style="font-size:2rem;"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CONTACT ========== -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="section-header center reveal">
+        <span class="section-badge" data-i18n="contact_badge">Get In Touch</span>
+        <h2 class="section-title" data-i18n="contact_title">Contact Us</h2>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card reveal"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><h4 data-i18n="c1_h">Location</h4><p data-i18n="c1_p">Tiruppur, Tamil Nadu<br/>India – 641 601</p></div>
+        <div class="contact-card reveal"><div class="contact-icon"><i class="fas fa-phone-alt"></i></div><h4 data-i18n="c2_h">Phone</h4><p data-i18n="c2_p">+91 XXXXX XXXXX<br/>9 AM – 6 PM</p></div>
+        <div class="contact-card reveal"><div class="contact-icon"><i class="fas fa-envelope"></i></div><h4 data-i18n="c3_h">Email</h4><p data-i18n="c3_p">info@nallorvattam.org<br/>Reply in 24 hrs</p></div>
+        <div class="contact-card reveal"><div class="contact-icon"><i class="fab fa-whatsapp"></i></div><h4 data-i18n="c4_h">WhatsApp</h4><p data-i18n="c4_p">Join our cleanup group<br/>for updates</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== JOIN BANNER ========== -->
+  <section class="join-banner">
+    <div class="container">
+      <div class="jb-inner reveal">
+        <div class="jb-left">
+          <h2 data-i18n="jb_title">Ready to Make Tiruppur Cleaner?</h2>
+          <p data-i18n="jb_desc">Join thousands of citizens who are already taking action. Every cleanup starts with one person deciding to show up.</p>
+        </div>
+        <a href="#home" class="btn btn-primary btn-lg jb-btn">
+          <i class="fas fa-arrow-up"></i> <span data-i18n="jb_btn">Register from Top</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand-col">
+            <div class="footer-brand">
+              <img src="nallorvattam.png" alt="நல்லோர் வட்டம்" class="footer-logo-img" />
+            </div>
+            <p class="footer-tagline" data-i18n="footer_tagline">Tiruppur, Tamil Nadu</p>
+            <p class="footer-desc" data-i18n="footer_desc">Fighting for a clean, waste-free Tiruppur through community action, cleanups and peaceful protest.</p>
+            <div class="footer-socials">
+              <a href="#" class="social-btn" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="social-btn" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" class="social-btn" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+              <a href="#" class="social-btn" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            </div>
+          </div>
+          <div class="footer-links-col">
+            <h4 data-i18n="footer_quick">Quick Links</h4>
+            <ul>
+              <li><a href="#home"><i class="fas fa-chevron-right"></i><span data-i18n="fl1">Home</span></a></li>
+              <li><a href="#members"><i class="fas fa-chevron-right"></i><span data-i18n="fl3">Members</span></a></li>
+              <li><a href="#about"><i class="fas fa-chevron-right"></i><span data-i18n="fl4">About</span></a></li>
+              <li><a href="#mission"><i class="fas fa-chevron-right"></i><span data-i18n="fl5">Mission</span></a></li>
+              <li><a href="#gallery"><i class="fas fa-chevron-right"></i><span data-i18n="fl6">Gallery</span></a></li>
+              <li><a href="#contact"><i class="fas fa-chevron-right"></i><span data-i18n="fo5">Contact</span></a></li>
+            </ul>
+          </div>
+          <div class="footer-links-col">
+            <h4 data-i18n="footer_focus">Our Focus</h4>
+            <ul>
+              <li><a href="#mission"><i class="fas fa-chevron-right"></i><span data-i18n="fo1">Waste Clearance</span></a></li>
+              <li><a href="#mission"><i class="fas fa-chevron-right"></i><span data-i18n="fo2">Protest Campaigns</span></a></li>
+              <li><a href="#mission"><i class="fas fa-chevron-right"></i><span data-i18n="fo3">Illegal Dumping</span></a></li>
+              <li><a href="#mission"><i class="fas fa-chevron-right"></i><span data-i18n="fo4">Awareness Drives</span></a></li>
+            </ul>
+          </div>
+          <div class="footer-contact-col">
+            <h4 data-i18n="footer_contact_h">Contact</h4>
+            <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span data-i18n="fc1">Tiruppur, Tamil Nadu</span></div>
+            <div class="footer-contact-item"><i class="fas fa-phone"></i><span data-i18n="fc2">+91 XXXXX XXXXX</span></div>
+            <div class="footer-contact-item"><i class="fas fa-envelope"></i><span data-i18n="fc3">info@nallorvattam.org</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p data-i18n="footer_copy">© 2024 நல்லோர் வட்டம் · Tiruppur. All rights reserved.</p>
+        <p data-i18n="footer_made">Made with ❤ for a cleaner Tiruppur</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

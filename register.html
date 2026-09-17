@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ── Security meta tags ── -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Join | நல்லோர் வட்டம் – Nallor Vattam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="register.css" />
+</head>
+<body>
+
+  <!-- ===== LOADING SCREEN ===== -->
+  <div id="loader" class="loader-overlay">
+    <div class="loader-content">
+      <div class="loader-logo-wrap">
+        <img src="nallorvattam.png" alt="நல்லோர் வட்டம்" class="loader-logo-img" />
+      </div>
+      <p class="loader-motto">நல்லோர் வட்டம்</p>
+      <div class="loader-bar-wrap">
+        <div class="loader-bar" id="loaderBar"><span class="loader-bar-glow"></span></div>
+      </div>
+      <p class="loader-percent" id="loaderPercent">0%</p>
+    </div>
+  </div>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="nallorvattam.png" alt="நல்லோர் வட்டம்" class="nav-logo-full" id="navLogoImg" />
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html"         class="nav-link" data-en="Home"    data-ta="முகப்பு">Home</a></li>
+        <li><a href="index.html#members" class="nav-link" data-en="Members" data-ta="உறுப்பினர்">Members</a></li>
+        <li><a href="index.html#about"   class="nav-link" data-en="About"   data-ta="பற்றி">About</a></li>
+        <li><a href="index.html#mission" class="nav-link" data-en="Mission" data-ta="நோக்கம்">Mission</a></li>
+        <li><a href="index.html#gallery" class="nav-link" data-en="Gallery" data-ta="படங்கள்">Gallery</a></li>
+        <li><a href="index.html#contact" class="nav-link" data-en="Contact" data-ta="தொடர்பு">Contact</a></li>
+        <li><a href="register.html"      class="nav-cta-btn" data-en="Join Us" data-ta="சேரவும்">Join Us</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Switch to dark mode">
+          <i class="fas fa-moon tt-moon"></i>
+          <i class="fas fa-sun  tt-sun"></i>
+        </button>
+        <button class="lang-toggle" id="langToggle" aria-label="Switch language">
+          <span class="lt-flag" id="langFlag">🇮🇳</span>
+          <span class="lt-text">
+            <span id="langLabel">தமிழ்</span>
+            <i class="fas fa-chevron-down"></i>
+          </span>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ===== HERO STRIP ===== -->
+  <section class="rg-hero">
+    <div class="rg-hero-bg" aria-hidden="true">
+      <span class="rghb rghb1"></span><span class="rghb rghb2"></span><span class="rghb rghb3"></span>
+      <i class="fas fa-recycle  rg-fi rg-fi1"></i>
+      <i class="fas fa-broom    rg-fi rg-fi2"></i>
+      <i class="fas fa-leaf     rg-fi rg-fi3"></i>
+      <i class="fas fa-fist-raised rg-fi rg-fi4"></i>
+    </div>
+    <div class="container">
+      <nav class="rg-breadcrumb" aria-label="breadcrumb">
+        <a href="index.html"><i class="fas fa-home"></i> <span data-en="Home" data-ta="முகப்பு">Home</span></a>
+        <i class="fas fa-chevron-right"></i>
+        <span data-i18n="reg_badge">Member Registration</span>
+      </nav>
+      <div class="rg-hero-content">
+        <div class="rg-hero-left">
+          <div class="rg-badge"><i class="fas fa-user-plus"></i> <span data-i18n="reg_badge">Member Registration</span></div>
+          <h1 class="rg-hero-title">
+            <span data-i18n="reg_title_pre">Join</span> <span class="rg-highlight">நல்லோர் வட்டம்</span>
+          </h1>
+          <p class="rg-hero-sub" data-i18n="reg_sub">Stand with us for a <strong>waste-free Tiruppur.</strong> Fill in your details — takes less than 2 minutes.</p>
+        </div>
+        <div class="rg-stats-strip">
+          <div class="rgss-item"><i class="fas fa-users"></i><div><strong id="rc-members">1,248</strong><span data-en="Members" data-ta="உறுப்பினர்">Members</span></div></div>
+          <div class="rgss-div"></div>
+          <div class="rgss-item"><i class="fas fa-broom"></i><div><strong>87</strong><span data-en="Cleanups" data-ta="சுத்தங்கள்">Cleanups</span></div></div>
+          <div class="rgss-div"></div>
+          <div class="rgss-item"><i class="fas fa-fist-raised"></i><div><strong>34</strong><span data-en="Protests" data-ta="போராட்டங்கள்">Protests</span></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MAIN FORM SECTION ===== -->
+  <section class="rg-section">
+    <div class="container">
+      <div class="rg-layout">
+
+        <!-- ── LEFT PANEL ── -->
+        <aside class="rg-info-panel">
+          <div class="rip-head">
+            <div class="rip-icon-circle"><i class="fas fa-recycle"></i></div>
+            <h2 data-en="Why Join?" data-ta="ஏன் சேர வேண்டும்?">Why Join?</h2>
+          </div>
+          <ul class="rip-list">
+            <li>
+              <div class="rip-li-icon"><i class="fas fa-broom"></i></div>
+              <div>
+                <strong data-en="Cleanup Drives" data-ta="சுத்தப்படுத்தல் பணிகள்">Cleanup Drives</strong>
+                <span data-en="Remove waste from Tiruppur streets." data-ta="திருப்பூர் தெருக்களில் கழிவுகளை அகற்றுகிறோம்.">Remove waste from Tiruppur streets.</span>
+              </div>
+            </li>
+            <li>
+              <div class="rip-li-icon"><i class="fas fa-fist-raised"></i></div>
+              <div>
+                <strong data-en="Protest Dumping" data-ta="கொட்டலுக்கு எதிர்ப்பு">Protest Dumping</strong>
+                <span data-en="Raise your voice against illegal waste." data-ta="சட்டவிரோத கழிவுக்கு எதிராக குரல் கொடுங்கள்.">Raise your voice against illegal waste.</span>
+              </div>
+            </li>
+            <li>
+              <div class="rip-li-icon"><i class="fas fa-users"></i></div>
+              <div>
+                <strong data-en="1,248+ Members" data-ta="1,248+ உறுப்பினர்கள்">1,248+ Members</strong>
+                <span data-en="Join committed Tiruppur citizens." data-ta="அர்ப்பணிப்புள்ள திருப்பூர் குடிமக்களுடன் சேரவும்.">Join committed Tiruppur citizens.</span>
+              </div>
+            </li>
+            <li>
+              <div class="rip-li-icon"><i class="fas fa-certificate"></i></div>
+              <div>
+                <strong data-en="Member Certificate" data-ta="உறுப்பினர் சான்றிதழ்">Member Certificate</strong>
+                <span data-en="Get your official Nallor Vattam certificate." data-ta="அதிகாரப்பூர்வ நல்லோர் வட்டம் சான்றிதழ் பெறுங்கள்.">Get your official Nallor Vattam certificate.</span>
+              </div>
+            </li>
+          </ul>
+          <div class="rip-quote-box">
+            <i class="fas fa-quote-left"></i>
+            <p>கழிவுகளை அகற்றுவோம்<br/>Tiruppur-ஐ காப்போம்</p>
+          </div>
+          <div class="rip-location">
+            <i class="fas fa-map-marker-alt"></i>
+            <span data-en="Tiruppur, Tamil Nadu" data-ta="திருப்பூர், தமிழ்நாடு">Tiruppur, Tamil Nadu</span>
+          </div>
+        </aside>
+
+        <!-- ── RIGHT FORM PANEL ── -->
+        <main class="rg-form-panel">
+
+          <!-- Step indicator -->
+          <div class="rg-steps-bar">
+            <div class="rg-step rg-step-active" id="sind1">
+              <div class="rg-step-dot">1</div>
+              <span data-i18n="step1_label">Your Details</span>
+            </div>
+            <div class="rg-step-line" id="sline1"></div>
+            <div class="rg-step" id="sind2">
+              <div class="rg-step-dot">2</div>
+              <span data-i18n="step2_label">Review</span>
+            </div>
+            <div class="rg-step-line" id="sline2"></div>
+            <div class="rg-step" id="sind3">
+              <div class="rg-step-dot"><i class="fas fa-check"></i></div>
+              <span data-i18n="step3_label">Done!</span>
+            </div>
+          </div>
+
+          <!-- ── STEP 1 ── -->
+          <div class="rg-step-body" id="step1">
+            <h3 class="rg-form-title" data-i18n="form_title1">Personal Details</h3>
+            <p class="rg-form-sub" data-i18n="form_sub1">Fields marked <span class="req">*</span> are required.</p>
+
+            <!-- Name -->
+            <div class="rg-field">
+              <label for="fname"><span data-i18n="label_name">Full Name</span> <span class="req">*</span></label>
+              <div class="rg-input-wrap">
+                <i class="fas fa-user rg-fi-icon"></i>
+                <input type="text" id="fname" data-i18n-placeholder="placeholder_name" placeholder="Your full name" autocomplete="off" />
+              </div>
+              <span class="rg-err" id="err-fname"></span>
+            </div>
+
+            <!-- Phone + Age -->
+            <div class="rg-row">
+              <div class="rg-field">
+                <label for="fphone"><span data-i18n="label_phone">Phone Number</span> <span class="req">*</span></label>
+                <div class="rg-input-wrap">
+                  <i class="fas fa-phone rg-fi-icon"></i>
+                  <input type="tel" id="fphone" data-i18n-placeholder="placeholder_phone" placeholder="+91 XXXXX XXXXX" autocomplete="off" maxlength="14" />
+                </div>
+                <span class="rg-err" id="err-fphone"></span>
+              </div>
+              <div class="rg-field">
+                <label for="fage"><span data-i18n="label_age">Age</span> <span class="req">*</span></label>
+                <div class="rg-input-wrap">
+                  <i class="fas fa-hashtag rg-fi-icon"></i>
+                  <input type="number" id="fage" min="5" max="100"
+                         data-i18n-placeholder="placeholder_age" placeholder="Your age" autocomplete="off" />
+                </div>
+                <span class="rg-err" id="err-fage"></span>
+              </div>
+            </div>
+
+            <!-- Occupation -->
+            <div class="rg-field">
+              <label for="foccupation"><span data-i18n="label_occupation">Occupation</span> <span class="req">*</span></label>
+              <div class="rg-input-wrap rg-select-wrap">
+                <i class="fas fa-briefcase rg-fi-icon"></i>
+                <select id="foccupation">
+                  <option value="" disabled selected data-i18n-option="placeholder_occupation">Select Occupation</option>
+                  <option value="Student"             data-en="Student"              data-ta="மாணவர்">Student</option>
+                  <option value="Business"            data-en="Business"             data-ta="வணிகம்">Business</option>
+                  <option value="Government Employee" data-en="Government Employee"  data-ta="அரசு ஊழியர்">Government Employee</option>
+                  <option value="Private Employee"    data-en="Private Employee"     data-ta="தனியார் ஊழியர்">Private Employee</option>
+                  <option value="Farmer"              data-en="Farmer"               data-ta="விவசாயி">Farmer</option>
+                  <option value="Teacher"             data-en="Teacher / Educator"   data-ta="ஆசிரியர்">Teacher / Educator</option>
+                  <option value="Healthcare"          data-en="Healthcare Worker"    data-ta="சுகாதார பணியாளர்">Healthcare Worker</option>
+                  <option value="Homemaker"           data-en="Homemaker"            data-ta="இல்லத்தரசி">Homemaker</option>
+                  <option value="Other"               data-en="Other"                data-ta="மற்றவை">Other</option>
+                </select>
+                <i class="fas fa-chevron-down rg-sel-arrow"></i>
+              </div>
+              <span class="rg-err" id="err-foccupation"></span>
+            </div>
+
+            <!-- Qualification — shown only when Student -->
+            <div class="rg-field" id="qualificationField" style="display:none;">
+              <label for="fqualification"><span data-i18n="label_qualification">Qualification</span> <span class="req">*</span></label>
+              <div class="rg-input-wrap rg-select-wrap">
+                <i class="fas fa-graduation-cap rg-fi-icon"></i>
+                <select id="fqualification">
+                  <option value="" disabled selected data-i18n-option="placeholder_qualification">Select Qualification</option>
+                  <option value="Below 10th" data-en="School – Below 10th"  data-ta="பள்ளி – 10ம் வகுப்புக்கு கீழ்">School – Below 10th</option>
+                  <option value="10th Std"   data-en="School – 10th Std"    data-ta="பள்ளி – 10ம் வகுப்பு">School – 10th Std</option>
+                  <option value="12th Std"   data-en="School – 12th Std"    data-ta="பள்ளி – 12ம் வகுப்பு">School – 12th Std</option>
+                  <option value="Diploma"    data-en="Diploma"              data-ta="டிப்ளோமா">Diploma</option>
+                  <option value="UG Arts"    data-en="UG – BA / BSc / BCom" data-ta="இளங்கலை – கலை / அறிவியல் / வணிகம்">UG – BA / BSc / BCom</option>
+                  <option value="UG Engg"    data-en="UG – BE / B.Tech"     data-ta="இளங்கலை – பொறியியல்">UG – BE / B.Tech</option>
+                  <option value="UG Medical" data-en="UG – MBBS / BDS"      data-ta="இளங்கலை – மருத்துவம்">UG – MBBS / BDS</option>
+                  <option value="PG"         data-en="Post Graduate (PG)"   data-ta="முதுகலை (PG)">Post Graduate (PG)</option>
+                  <option value="PhD"        data-en="PhD / Research"       data-ta="முனைவர் பட்டம்">PhD / Research</option>
+                  <option value="Other"      data-en="Other"                data-ta="மற்றவை">Other</option>
+                </select>
+                <i class="fas fa-chevron-down rg-sel-arrow"></i>
+              </div>
+              <span class="rg-err" id="err-fqualification"></span>
+            </div>
+
+            <!-- Job Type — shown for non-student, non-homemaker, non-farmer -->
+            <div class="rg-field" id="jobTypeField" style="display:none;">
+              <label for="fjobtype">
+                <span data-i18n="label_jobtype">Job Type / Role</span>
+                <em class="opt-tag" data-i18n="optional">(Optional)</em>
+              </label>
+              <div class="rg-input-wrap">
+                <i class="fas fa-id-badge rg-fi-icon"></i>
+                <input type="text" id="fjobtype"
+                       data-i18n-placeholder="placeholder_jobtype"
+                       placeholder="e.g. Software Engineer, Shop Owner" autocomplete="off" />
+              </div>
+            </div>
+
+            <!-- ══ ADDRESS SECTION ══ -->
+            <div class="rg-address-section">
+
+              <div class="rg-address-header">
+                <i class="fas fa-city"></i>
+                <span data-i18n="addr_section_title">Address Details</span>
+                <span class="rg-addr-corp" data-i18n="corp_name">Tiruppur Corp</span>
+              </div>
+
+              <!-- Corp banner -->
+              <div class="rg-corp-banner">
+                <div class="rg-corp-banner-left">
+                  <div class="rg-corp-icon"><i class="fas fa-building"></i></div>
+                  <div>
+                    <div class="rg-corp-title" data-i18n="corp_full_label">Tiruppur City Municipal Corporation</div>
+                    <div class="rg-corp-sub"   data-i18n="corp_sub_label">60 Wards · 4 Mandalams</div>
+                  </div>
+                </div>
+                <span class="rg-corp-badge"><i class="fas fa-check-circle"></i> <span data-i18n="corp_verified">Official</span></span>
+              </div>
+
+              <!-- Mandalam + Ward -->
+              <div class="rg-row">
+                <div class="rg-field">
+                  <label for="fmandalam"><span data-i18n="label_mandalam">Mandalam</span> <span class="req">*</span></label>
+                  <div class="rg-input-wrap rg-select-wrap">
+                    <i class="fas fa-layer-group rg-fi-icon"></i>
+                    <select id="fmandalam">
+                      <option value="" disabled selected data-i18n-option="placeholder_mandalam">Select Mandalam</option>
+                    </select>
+                    <i class="fas fa-chevron-down rg-sel-arrow"></i>
+                  </div>
+                  <span class="rg-err" id="err-fmandalam"></span>
+                </div>
+                <div class="rg-field">
+                  <label for="fward"><span data-i18n="label_ward">Ward</span> <span class="req">*</span></label>
+                  <div class="rg-input-wrap rg-select-wrap">
+                    <i class="fas fa-map-pin rg-fi-icon"></i>
+                    <select id="fward" disabled>
+                      <option value="" disabled selected data-i18n-option="placeholder_ward">Select Ward</option>
+                    </select>
+                    <i class="fas fa-chevron-down rg-sel-arrow"></i>
+                  </div>
+                  <span class="rg-err" id="err-fward"></span>
+                </div>
+              </div>
+
+              <!-- Street (optional) -->
+              <div class="rg-field">
+                <label for="fstreet">
+                  <span data-i18n="label_street">Street</span>
+                  <em class="opt-tag" data-i18n="optional">(Optional)</em>
+                </label>
+                <div class="rg-input-wrap">
+                  <i class="fas fa-road rg-fi-icon"></i>
+                  <input type="text" id="fstreet"
+                         data-i18n-placeholder="placeholder_street"
+                         placeholder="e.g. Gandhi Street" autocomplete="off" />
+                </div>
+              </div>
+
+              <!-- Area / Locality (required) -->
+              <div class="rg-field">
+                <label for="farea"><span data-i18n="label_area">Area / Locality</span> <span class="req">*</span></label>
+                <div class="rg-input-wrap">
+                  <i class="fas fa-map-marker-alt rg-fi-icon"></i>
+                  <input type="text" id="farea"
+                         data-i18n-placeholder="placeholder_area"
+                         placeholder="e.g. Chettipalayam" autocomplete="off" />
+                </div>
+                <span class="rg-err" id="err-farea"></span>
+              </div>
+
+              <!-- Pincode -->
+              <div class="rg-field">
+                <label for="fpincode"><span data-i18n="label_pincode">Pincode</span> <span class="req">*</span></label>
+                <div class="rg-input-wrap">
+                  <i class="fas fa-hashtag rg-fi-icon"></i>
+                  <input type="text" id="fpincode" maxlength="6"
+                         data-i18n-placeholder="placeholder_pincode"
+                         placeholder="6-digit Pincode" autocomplete="off" />
+                </div>
+                <span class="rg-err" id="err-fpincode"></span>
+              </div>
+
+              <!-- Live Address Preview -->
+              <div class="rg-addr-preview" id="addrPreview" style="display:none;">
+                <div class="rg-addr-preview-label">
+                  <i class="fas fa-eye"></i>
+                  <span data-i18n="addr_preview_label">Address Preview</span>
+                </div>
+                <p class="rg-addr-preview-text" id="addrPreviewText"></p>
+              </div>
+
+            </div><!-- /.rg-address-section -->
+
+            <!-- Terms -->
+            <div class="rg-checkbox-wrap">
+              <label class="rg-checkbox">
+                <input type="checkbox" id="fterms" />
+                <span class="rg-checkbox-box"><i class="fas fa-check"></i></span>
+                <span data-i18n="terms_text">I agree to actively participate in cleanup drives and community events organised by Nallor Vattam. <span class="req">*</span></span>
+              </label>
+              <span class="rg-err" id="err-fterms"></span>
+            </div>
+
+            <button type="button" id="nextBtn" class="btn btn-primary btn-lg rg-btn-full">
+              <span data-i18n="btn_continue">Continue to Review</span> <i class="fas fa-arrow-right"></i>
+            </button>
+          </div><!-- /#step1 -->
+
+          <!-- ── STEP 2: REVIEW ── -->
+          <div class="rg-step-body rg-hidden" id="step2">
+            <h3 class="rg-form-title" data-i18n="form_title2">Review Your Details</h3>
+            <p class="rg-form-sub" data-i18n="form_sub2">Everything look correct? Submit when ready.</p>
+            <div class="rg-confirm-card" id="confirmCard">
+              <div class="rg-confirm-avatar"><i class="fas fa-user-circle"></i></div>
+              <div class="rg-confirm-rows" id="confirmRows"></div>
+            </div>
+            <div class="rg-confirm-actions">
+              <button type="button" id="editBtn" class="rg-btn-edit">
+                <i class="fas fa-pen"></i> <span data-i18n="btn_edit">Edit</span>
+              </button>
+              <button type="button" id="submitBtn" class="btn btn-primary btn-lg">
+                <i class="fas fa-paper-plane"></i> <span data-i18n="btn_submit">Submit Registration</span>
+              </button>
+            </div>
+            <p class="rg-privacy-note"><i class="fas fa-lock"></i> <span data-i18n="privacy">Your data is private and secure.</span></p>
+          </div>
+
+          <!-- ── STEP 3: SUCCESS ── -->
+          <div class="rg-step-body rg-hidden" id="step3">
+            <div class="rg-success">
+              <div class="rg-success-anim">
+                <div class="rg-success-circle"><i class="fas fa-check"></i></div>
+                <span class="rg-sr rg-sr1"></span>
+                <span class="rg-sr rg-sr2"></span>
+                <span class="rg-sr rg-sr3"></span>
+              </div>
+              <h3 class="rg-success-title" data-i18n="success_title">Welcome to Nallor Vattam! 🌿</h3>
+              <p class="rg-success-msg" id="sucMsg"></p>
+              <div class="rg-member-id-badge" id="sucIdBadge">
+                <i class="fas fa-id-card"></i>
+                <span id="sucIdText">Member ID: —</span>
+              </div>
+              <div class="rg-member-num" id="sucNumBadge">
+                <span class="clb-dot"></span>
+                <span id="sucNumText"></span>
+              </div>
+              <div class="rg-success-actions">
+                <button type="button" id="downloadCertBtn" class="btn btn-primary">
+                  <i class="fas fa-id-card"></i> <span data-i18n="btn_cert">Download Certificate</span>
+                </button>
+                <a href="index.html" id="backHomeBtn" class="rg-outline-btn">
+                  <i class="fas fa-home"></i> <span data-i18n="btn_home">Back to Home</span>
+                </a>
+                <button type="button" id="shareBtn" class="rg-outline-btn">
+                  <i class="fas fa-share-alt"></i> <span data-i18n="btn_share">Share</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </main>
+      </div><!-- /.rg-layout -->
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer rg-footer">
+    <div class="footer-bottom">
+      <div class="container">
+        <p>© 2024 நல்லோர் வட்டம் · Tiruppur, Tamil Nadu.</p>
+        <p>Made with <i class="fas fa-heart" style="color:#22C55E"></i> for a cleaner Tiruppur</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="register.js"></script>
+</body>
+</html>

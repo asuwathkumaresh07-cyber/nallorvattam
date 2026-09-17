@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- ── Security meta tags ── -->
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta http-equiv="X-Frame-Options" content="DENY" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <title>Admin | நல்லோர் வட்டம்</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Tamil:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- API base URL — change this when deploying frontend separately -->
+  <!-- Same origin (served by Express): leave empty -->
+  <!-- Separate hosting (e.g. Netlify + Render): set to your Render URL -->
+  <script>window.NV_API_URL = '';</script>
+  <!-- Apply saved theme before any paint to prevent flash -->
+  <script>
+    (function(){
+      var t=localStorage.getItem('nv_theme')||(window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+      document.documentElement.setAttribute('data-theme',t);
+    })();
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="adm-body">
+
+  <!-- ══════════════ LOGIN SCREEN ══════════════ -->
+  <div id="loginScreen" class="adm-login-screen">
+    <div class="adm-login-card">
+      <div class="adm-login-logo">
+        <img src="nallorvattam.png" alt="நல்லோர் வட்டம்" class="adm-logo-img" id="loginLogoImg" />
+      </div>
+      <div class="adm-login-badge" id="adminLoginBadge"><i class="fas fa-shield-alt"></i> Admin Portal</div>
+      <h2 class="adm-login-title" id="adminLoginTitle">Admin Login</h2>
+      <p class="adm-login-sub" id="adminLoginSub">Nallor Vattam · Tiruppur</p>
+
+      <!-- Language + Theme toggles on login card -->
+      <div class="adm-login-lang-wrap">
+        <button class="adm-lang-toggle" id="adminLangToggleLogin" aria-label="Switch language">
+          <span class="adm-lt-flag" id="adminLangFlagLogin">🇮🇳</span>
+          <span class="adm-lt-text">
+            <span id="adminLangLabelLogin">தமிழ்</span>
+            <i class="fas fa-chevron-down"></i>
+          </span>
+        </button>
+        <button class="adm-theme-toggle" id="adminThemeToggleLogin" aria-label="Toggle dark mode" title="Switch to light mode">
+          <i class="fas fa-sun  adm-tt-sun"></i>
+          <i class="fas fa-moon adm-tt-moon"></i>
+        </button>
+      </div>
+
+      <div class="adm-field">
+        <label for="adminUser" id="adminUserLabel"><i class="fas fa-user"></i> Username</label>
+        <input type="text" id="adminUser" placeholder="admin" autocomplete="off" />
+      </div>
+      <div class="adm-field">
+        <label for="adminPass" id="adminPassLabel"><i class="fas fa-lock"></i> Password</label>
+        <div class="adm-pw-wrap">
+          <input type="password" id="adminPass" placeholder="••••••••" autocomplete="off" />
+          <button type="button" class="adm-pw-eye" id="pwEye" tabindex="-1">
+            <i class="fas fa-eye" id="pwEyeIcon"></i>
+          </button>
+        </div>
+        <span class="adm-err" id="loginErr"></span>
+      </div>
+      <button class="adm-btn-primary adm-btn-full" id="loginBtn">
+        <i class="fas fa-sign-in-alt"></i> Sign In
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════ ADMIN DASHBOARD ══════════════ -->
+  <div id="dashboard" class="adm-dashboard" style="display:none;">
+
+    <!-- ── SIDEBAR ── -->
+    <aside class="adm-sidebar" id="sidebar">
+      <div class="adm-sidebar-logo">
+        <img src="nallorvattam1.png" alt="நல்லோர் வட்டம்" class="adm-sidebar-logo-img" id="sidebarLogoImg" />
+      </div>
+      <div class="adm-sidebar-admin">
+        <div class="adm-sidebar-avatar"><i class="fas fa-user-shield"></i></div>
+        <div>
+          <div class="adm-sidebar-name">Administrator</div>
+          <div class="adm-sidebar-role">Nallor Vattam</div>
+        </div>
+      </div>
+      <nav class="adm-nav">
+        <a href="#" class="adm-nav-link active" data-tab="overview">
+          <i class="fas fa-tachometer-alt"></i> <span>Overview</span>
+        </a>
+        <a href="#" class="adm-nav-link" data-tab="members">
+          <i class="fas fa-users"></i> <span>Members</span>
+        </a>
+        <a href="#" class="adm-nav-link" data-tab="gallery">
+          <i class="fas fa-images"></i> <span>Gallery</span>
+        </a>
+        <a href="#" class="adm-nav-link" data-tab="video">
+          <i class="fas fa-film"></i> <span>Video</span>
+        </a>
+        <a href="#" class="adm-nav-link" data-tab="export">
+          <i class="fas fa-file-excel"></i> <span>Export</span>
+        </a>
+      </nav>
+      <button class="adm-logout-btn" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+      </button>
+    </aside>
+
+    <!-- ── MAIN CONTENT ── -->
+    <main class="adm-main">
+
+      <!-- Top bar -->
+      <header class="adm-topbar">
+        <button class="adm-hamburger" id="sidebarToggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="adm-topbar-title" id="topbarTitle">Overview</div>
+        <div class="adm-topbar-right">
+          <button class="adm-theme-toggle" id="adminThemeToggle" aria-label="Toggle dark mode" title="Switch to light mode">
+            <i class="fas fa-sun  adm-tt-sun"></i>
+            <i class="fas fa-moon adm-tt-moon"></i>
+          </button>
+          <button class="adm-lang-toggle" id="adminLangToggle" aria-label="Switch language">
+            <span class="adm-lt-flag" id="adminLangFlag">🇮🇳</span>
+            <span class="adm-lt-text">
+              <span id="adminLangLabel">தமிழ்</span>
+              <i class="fas fa-chevron-down"></i>
+            </span>
+          </button>
+          <span class="adm-topbar-time" id="topbarTime"></span>
+        </div>
+      </header>
+
+      <!-- ────────── TAB: OVERVIEW ────────── -->
+      <div class="adm-tab-body" id="tab-overview">
+        <div class="adm-page-header">
+          <h1>Dashboard Overview</h1>
+          <p>Welcome back, Administrator</p>
+        </div>
+
+        <div class="adm-stat-grid">
+          <div class="adm-stat-card">
+            <div class="adm-stat-icon" style="background:linear-gradient(135deg,#166534,#22C55E)">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="adm-stat-info">
+              <div class="adm-stat-value" id="statTotal">0</div>
+              <div class="adm-stat-label">Total Members</div>
+            </div>
+          </div>
+          <div class="adm-stat-card">
+            <div class="adm-stat-icon" style="background:linear-gradient(135deg,#0369a1,#38bdf8)">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="adm-stat-info">
+              <div class="adm-stat-value" id="statToday">0</div>
+              <div class="adm-stat-label">Joined Today</div>
+            </div>
+          </div>
+          <div class="adm-stat-card">
+            <div class="adm-stat-icon" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">
+              <i class="fas fa-images"></i>
+            </div>
+            <div class="adm-stat-info">
+              <div class="adm-stat-value" id="statPhotos">0</div>
+              <div class="adm-stat-label">Gallery Photos</div>
+            </div>
+          </div>
+          <div class="adm-stat-card">
+            <div class="adm-stat-icon" style="background:linear-gradient(135deg,#b45309,#fbbf24)">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <div class="adm-stat-info">
+              <div class="adm-stat-value" id="statStudents">0</div>
+              <div class="adm-stat-label">Students</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent members -->
+        <div class="adm-card">
+          <div class="adm-card-header">
+            <h3><i class="fas fa-clock"></i> Recent Registrations</h3>
+          </div>
+          <div class="adm-table-wrap">
+            <table class="adm-table" id="recentTable">
+              <thead>
+                <tr>
+                  <th>Member ID</th>
+                  <th>Name</th>
+                  <th>Phone</th>
+                  <th>Mandalam</th>
+                  <th>Ward</th>
+                  <th>Occupation</th>
+                  <th>Registered</th>
+                </tr>
+              </thead>
+              <tbody id="recentBody">
+                <tr><td colspan="7" class="adm-empty">No members yet</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ────────── TAB: MEMBERS ────────── -->
+      <div class="adm-tab-body adm-hidden" id="tab-members">
+        <div class="adm-page-header">
+          <h1>Member Management</h1>
+          <p>View, edit and delete registered members</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="adm-filters">
+          <div class="adm-search-wrap">
+            <i class="fas fa-search"></i>
+            <input type="text" id="memberSearch" placeholder="Search by name, phone, ward…" />
+          </div>
+          <select id="filterMandalam" class="adm-select">
+            <option value="">All Mandalams</option>
+            <option value="Mandalam 1 – 15 Velampalayam">Mandalam 1</option>
+            <option value="Mandalam 2 – Thottipalayam">Mandalam 2</option>
+            <option value="Mandalam 3 – Nallur">Mandalam 3</option>
+            <option value="Mandalam 4 – Andipalayam">Mandalam 4</option>
+          </select>
+          <select id="filterOccupation" class="adm-select">
+            <option value="">All Occupations</option>
+            <option value="Student">Student</option>
+            <option value="Business">Business</option>
+            <option value="Government Employee">Govt Employee</option>
+            <option value="Private Employee">Private Employee</option>
+            <option value="Farmer">Farmer</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Homemaker">Homemaker</option>
+            <option value="Other">Other</option>
+          </select>
+          <button class="adm-btn-outline" id="clearFilters">
+            <i class="fas fa-times"></i> Clear
+          </button>
+        </div>
+
+        <div class="adm-card">
+          <div class="adm-card-header">
+            <h3><i class="fas fa-users"></i> All Members <span class="adm-count-badge" id="memberCount">0</span></h3>
+            <button class="adm-btn-primary" id="exportMembersBtn">
+              <i class="fas fa-file-excel"></i> Export Excel
+            </button>
+          </div>
+          <div class="adm-table-wrap">
+            <table class="adm-table" id="membersTable">
+              <thead>
+                <tr>
+                  <th>Member ID</th>
+                  <th>Name</th>
+                  <th>Age</th>
+                  <th>Phone</th>
+                  <th>Mandalam</th>
+                  <th>Ward</th>
+                  <th>Area</th>
+                  <th>Pincode</th>
+                  <th>Occupation</th>
+                  <th>Qualification</th>
+                  <th>Registered</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="membersBody">
+                <tr><td colspan="12" class="adm-empty">No members registered yet</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ────────── TAB: GALLERY ────────── -->
+      <div class="adm-tab-body adm-hidden" id="tab-gallery">
+        <div class="adm-page-header">
+          <h1>Gallery Management</h1>
+          <p>Add photos to the website gallery</p>
+        </div>
+
+        <!-- Gallery visibility toggle -->
+        <div class="adm-card adm-toggle-card" id="galleryToggleCard" style="margin-bottom:20px;">
+          <div class="adm-card-header">
+            <h3>
+              <i class="fas fa-eye" id="galleryToggleIcon"></i>
+              <span id="galleryToggleLabel">Gallery Visibility</span>
+            </h3>
+          </div>
+          <div class="adm-toggle-row">
+            <div class="adm-toggle-info">
+              <div class="adm-toggle-title">
+                <span id="galleryToggleTitle">Gallery Section</span>
+              </div>
+              <p class="adm-toggle-desc">Gallery is currently <strong id="galleryStatusWord" style="color:#22c55e;">visible</strong> on the public website.</p>
+            </div>
+            <button class="adm-toggle-btn" id="galleryToggleBtn" onclick="toggleGalleryVisibility()">
+              <i class="fas fa-spinner fa-spin" id="galleryToggleBtnIcon"></i>
+              <span id="galleryToggleBtnText">Loading…</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Upload area -->
+        <div class="adm-card">
+          <div class="adm-card-header">
+            <h3><i class="fas fa-cloud-upload-alt"></i> Upload Photos</h3>
+          </div>
+          <div class="adm-upload-zone" id="uploadZone">
+            <i class="fas fa-cloud-upload-alt adm-upload-icon"></i>
+            <p class="adm-upload-title">Drag & drop photos here</p>
+            <p class="adm-upload-sub">or click to browse · JPG, PNG, WEBP · max 5MB each</p>
+            <button class="adm-btn-primary adm-upload-btn" id="uploadPickBtn">
+              <i class="fas fa-folder-open"></i> Browse Files
+            </button>
+            <input type="file" id="fileInput" accept="image/*" multiple style="display:none" />
+          </div>
+          <div id="uploadPreview" class="adm-upload-preview"></div>
+          <div id="uploadActions" style="display:none; margin-top:16px; display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="adm-btn-primary" id="confirmUploadBtn">
+              <i class="fas fa-check"></i> Add to Gallery
+            </button>
+            <button class="adm-btn-outline" id="clearUploadBtn">
+              <i class="fas fa-times"></i> Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- Gallery grid -->
+        <div class="adm-card" style="margin-top:24px">
+          <div class="adm-card-header">
+            <h3><i class="fas fa-images"></i> Current Gallery <span class="adm-count-badge" id="galleryCount">0</span></h3>
+          </div>
+          <div class="adm-gallery-grid" id="adminGalleryGrid">
+            <div class="adm-gallery-empty" id="galleryEmpty">
+              <i class="fas fa-images"></i>
+              <p>No photos yet. Upload some above.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ────────── TAB: VIDEO ────────── -->
+      <div class="adm-tab-body adm-hidden" id="tab-video">
+        <div class="adm-page-header">
+          <h1>Background Video</h1>
+          <p>Upload a video — it will automatically play as the hero background on the homepage</p>
+        </div>
+
+        <!-- Upload area -->
+        <div class="adm-card">
+          <div class="adm-card-header">
+            <h3><i class="fas fa-cloud-upload-alt"></i> Upload New Video</h3>
+          </div>
+          <div class="adm-upload-zone" id="videoUploadZone">
+            <i class="fas fa-film adm-upload-icon"></i>
+            <p class="adm-upload-title">Drag &amp; drop a video here</p>
+            <p class="adm-upload-sub">or click to browse · MP4, WEBM · max 50 MB</p>
+            <button class="adm-btn-primary adm-upload-btn" id="videoPickBtn">
+              <i class="fas fa-folder-open"></i> Browse File
+            </button>
+            <input type="file" id="videoFileInput" accept="video/mp4,video/webm,video/*" style="display:none" />
+          </div>
+          <div id="videoUploadPreview" style="margin-top:14px;display:none;">
+            <video id="videoPreviewEl" controls muted style="width:100%;max-height:260px;border-radius:10px;background:#000;"></video>
+            <p id="videoFileName" style="margin-top:8px;font-size:.83rem;color:#9ca3af;text-align:center;"></p>
+          </div>
+          <div id="videoUploadActions" style="display:none;margin-top:16px;gap:10px;flex-wrap:wrap;">
+            <button class="adm-btn-primary" id="confirmVideoUploadBtn">
+              <i class="fas fa-check"></i> Set as Background Video
+            </button>
+            <button class="adm-btn-outline" id="clearVideoBtn">
+              <i class="fas fa-times"></i> Clear
+            </button>
+          </div>
+        </div>
+
+        <!-- Current videos -->
+        <div class="adm-card" style="margin-top:24px">
+          <div class="adm-card-header">
+            <h3><i class="fas fa-film"></i> Uploaded Videos <span class="adm-count-badge" id="videoCount">0</span></h3>
+          </div>
+          <div id="adminVideoGrid" class="adm-gallery-grid">
+            <div class="adm-gallery-empty">
+              <i class="fas fa-film"></i>
+              <p>No videos yet. Upload one above.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ────────── TAB: EXPORT ────────── -->
+      <div class="adm-tab-body adm-hidden" id="tab-export">
+        <div class="adm-page-header">
+          <h1>Export Data</h1>
+          <p>Download member data as Excel spreadsheet</p>
+        </div>
+
+        <div class="adm-export-grid">
+          <div class="adm-export-card">
+            <div class="adm-export-icon"><i class="fas fa-users"></i></div>
+            <h3>All Members</h3>
+            <p>Export complete member list with all details — name, phone, age, address, occupation</p>
+            <div class="adm-export-meta" id="exportMeta1">0 records</div>
+            <button class="adm-btn-primary adm-btn-full" id="exportAllBtn">
+              <i class="fas fa-file-excel"></i> Download All Members
+            </button>
+          </div>
+          <div class="adm-export-card">
+            <div class="adm-export-icon" style="background:linear-gradient(135deg,#0369a1,#38bdf8)"><i class="fas fa-filter"></i></div>
+            <h3>Filtered Export</h3>
+            <p>Export only the currently filtered members from the Members tab</p>
+            <div class="adm-export-meta" id="exportMeta2">0 records</div>
+            <button class="adm-btn-primary adm-btn-full" id="exportFilteredBtn" style="background:linear-gradient(135deg,#0369a1,#38bdf8)">
+              <i class="fas fa-file-excel"></i> Download Filtered
+            </button>
+          </div>
+          <div class="adm-export-card">
+            <div class="adm-export-icon" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)"><i class="fas fa-chart-bar"></i></div>
+            <h3>Summary Report</h3>
+            <p>Export a summary with counts by Mandalam, Occupation and Ward</p>
+            <button class="adm-btn-primary adm-btn-full" id="exportSummaryBtn" style="background:linear-gradient(135deg,#7c3aed,#a78bfa)">
+              <i class="fas fa-file-excel"></i> Download Summary
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ══ EDIT MEMBER MODAL ══ -->
+  <div class="adm-modal-overlay" id="editModal" style="display:none;">
+    <div class="adm-modal">
+      <div class="adm-modal-header">
+        <h3><i class="fas fa-user-edit"></i> Edit Member</h3>
+        <button class="adm-modal-close" id="closeEditModal"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="adm-modal-body">
+        <div class="adm-modal-grid">
+          <div class="adm-field">
+            <label>Member ID</label>
+            <input type="text" id="editId" readonly class="adm-readonly" />
+          </div>
+          <div class="adm-field">
+            <label>Full Name <span class="req">*</span></label>
+            <input type="text" id="editName" />
+          </div>
+          <div class="adm-field">
+            <label>Phone <span class="req">*</span></label>
+            <input type="tel" id="editPhone" maxlength="13" />
+          </div>
+          <div class="adm-field">
+            <label>Age</label>
+            <input type="number" id="editAge" min="5" max="100" />
+          </div>
+          <div class="adm-field">
+            <label>Mandalam</label>
+            <input type="text" id="editMandalam" />
+          </div>
+          <div class="adm-field">
+            <label>Ward</label>
+            <input type="text" id="editWard" />
+          </div>
+          <div class="adm-field">
+            <label>Street</label>
+            <input type="text" id="editStreet" />
+          </div>
+          <div class="adm-field">
+            <label>Area / Locality</label>
+            <input type="text" id="editArea" />
+          </div>
+          <div class="adm-field">
+            <label>Pincode</label>
+            <input type="text" id="editPincode" maxlength="6" />
+          </div>
+          <div class="adm-field">
+            <label>Mobile</label>
+            <input type="tel" id="editMobile" maxlength="10" />
+          </div>
+          <div class="adm-field">
+            <label>Occupation</label>
+            <select id="editOccupation">
+              <option value="">—</option>
+              <option value="Student">Student</option>
+              <option value="Business">Business</option>
+              <option value="Government Employee">Government Employee</option>
+              <option value="Private Employee">Private Employee</option>
+              <option value="Farmer">Farmer</option>
+              <option value="Teacher">Teacher / Educator</option>
+              <option value="Healthcare">Healthcare Worker</option>
+              <option value="Homemaker">Homemaker</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="adm-field">
+            <label>Qualification</label>
+            <input type="text" id="editQualification" />
+          </div>
+        </div>
+        <span class="adm-err" id="editErr"></span>
+      </div>
+      <div class="adm-modal-footer">
+        <button class="adm-btn-outline" id="cancelEditBtn">Cancel</button>
+        <button class="adm-btn-primary" id="saveEditBtn">
+          <i class="fas fa-save"></i> Save Changes
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DELETE CONFIRM MODAL ══ -->
+  <div class="adm-modal-overlay" id="deleteModal" style="display:none;">
+    <div class="adm-modal adm-modal-sm">
+      <div class="adm-modal-header">
+        <h3><i class="fas fa-trash-alt" style="color:#ef4444"></i> Delete Member</h3>
+        <button class="adm-modal-close" id="closeDeleteModal"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="adm-modal-body">
+        <p>Are you sure you want to delete <strong id="deleteName">this member</strong>?</p>
+        <p style="font-size:.82rem;color:#9ca3af;margin-top:6px;">This action cannot be undone.</p>
+      </div>
+      <div class="adm-modal-footer">
+        <button class="adm-btn-outline" id="cancelDeleteBtn">Cancel</button>
+        <button class="adm-btn-danger" id="confirmDeleteBtn">
+          <i class="fas fa-trash-alt"></i> Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ TOAST NOTIFICATION ══ -->
+  <div class="adm-toast" id="toast">
+    <i class="fas fa-check-circle" id="toastIcon"></i>
+    <span id="toastMsg">Saved</span>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
